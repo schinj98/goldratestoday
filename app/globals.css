@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Design system: Groww-inspired.
+  Light = default (:root). Dark = html.dark class.
+  No shadows. No gradients. No gold. Information-first.
+
+  Palette:
+    --accent:      #00d09c   (primary green)
+    --success:     #12b76a   (positive)
+    --danger:      #f04438   (negative)
+    Surfaces:      #ffffff → #f7f9fc → #f2f4f7 → #eaecf0
+    Text:          #101828 → #344054 → #667085 → #98a2b3
+*/
+
+@layer base {
+
+  /* ── Light mode (default) ──────────────────────── */
+  :root {
+    --color-surface-1: 255 255 255;      /* #ffffff */
+    --color-surface-2: 247 249 252;      /* #f7f9fc */
+    --color-surface-3: 242 244 247;      /* #f2f4f7 */
+    --color-surface-4: 234 236 240;      /* #eaecf0 */
+
+    --color-ink-50:  16  24  40;         /* #101828 text-primary */
+    --color-ink-100: 29  41  57;         /* #1d2939 */
+    --color-ink-200: 52  64  84;         /* #344054 neutral */
+    --color-ink-300: 102 112 133;        /* #667085 text-secondary */
+    --color-ink-400: 152 162 179;        /* #98a2b3 text-muted */
+    --color-ink-500: 208 213 221;        /* #d0d5dd */
+    --color-ink-600: 234 236 240;        /* #eaecf0 border-level */
+    --color-ink-700: 242 244 247;        /* #f2f4f7 */
+    --color-ink-800: 247 249 252;        /* #f7f9fc */
+
+    /* Accent */
+    --gold:        #00d09c;
+    --gold-glow:   rgba(0, 208, 156, 0.12);
+    --gold-border: rgba(0, 208, 156, 0.25);
+
+    /* Price direction */
+    --up:    #12b76a;
+    --up-bg: rgba(18, 183, 106, 0.08);
+    --down:    #f04438;
+    --down-bg: rgba(240, 68, 56, 0.08);
+
+    /* Borders */
+    --border:   #eaecf0;
+    --border-2: #d0d5dd;
+
+    /* Body */
+    --body-bg:    #ffffff;
+    --body-color: #101828;
+
+    /* Chart SVG */
+    --chart-tick:   #98a2b3;
+    --chart-grid:   rgba(102,112,133,0.08);
+    --chart-cursor: rgba(102,112,133,0.12);
+  }
+
+  /* ── Dark mode ─────────────────────────────────── */
+  html.dark {
+    --color-surface-1: 16  24  40;       /* #101828 */
+    --color-surface-2: 29  41  57;       /* #1d2939 */
+    --color-surface-3: 52  64  84;       /* #344054 */
+    --color-surface-4: 71  84  103;      /* #475467 */
+
+    --color-ink-50:  249 250 251;        /* #f9fafb */
+    --color-ink-100: 238 242 246;        /* #eef2f6 */
+    --color-ink-200: 208 213 221;        /* #d0d5dd */
+    --color-ink-300: 152 162 179;        /* #98a2b3 */
+    --color-ink-400: 102 112 133;        /* #667085 */
+    --color-ink-500: 71  84  103;        /* #475467 */
+    --color-ink-600: 52  64  84;         /* #344054 */
+    --color-ink-700: 29  41  57;         /* #1d2939 */
+    --color-ink-800: 16  24  40;         /* #101828 */
+
+    --border:   rgba(52, 64, 84, 0.9);
+    --border-2: rgba(71, 84, 103, 0.9);
+
+    --body-bg:    #101828;
+    --body-color: #f9fafb;
+
+    --chart-tick:   #667085;
+    --chart-grid:   rgba(152,162,179,0.08);
+    --chart-cursor: rgba(152,162,179,0.12);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--body-bg);
+    color: var(--body-color);
+    font-family: 'Manrope', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  ::selection {
+    background: rgba(0, 208, 156, 0.18);
+    color: var(--body-color);
+  }
+
+  [class*="price"], [class*="rate"], [class*="amount"] {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* Dark mode: nav border */
+  html.dark nav { border-bottom-color: rgba(52,64,84,0.9); }
+
+  /* Dark mode: card elevates relative to bg */
+  html.dark .card        { box-shadow: none; }
+  html.dark .card-elevated { box-shadow: none; }
+}
+
+@layer components {
+  /* No shadows. Border only. */
+  .card {
+    @apply bg-surface-1 rounded-xl;
+    border: 1px solid var(--border);
+  }
+  .card-elevated {
+    @apply bg-surface-2 rounded-xl;
+    border: 1px solid var(--border);
+  }
+  .btn-ghost {
+    @apply px-3 py-1.5 rounded-lg text-ink-300 hover:text-ink-50 hover:bg-surface-3
+           text-xs font-medium transition-colors duration-150;
+  }
+  .btn-gold {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-150
+           text-[#00b386] bg-[#e7faf5] hover:bg-[#d0f5ec] border border-[#00d09c]/20;
+  }
+  .btn-active {
+    @apply px-3 py-1.5 rounded-lg bg-[#00d09c] text-white text-xs font-semibold
+           hover:bg-[#00b386] transition-colors duration-150;
+  }
+  .label-up {
+    @apply inline-flex items-center gap-1 text-up font-medium;
+  }
+  .label-down {
+    @apply inline-flex items-center gap-1 text-down font-medium;
+  }
+  .section-title {
+    @apply text-xs font-semibold uppercase tracking-widest text-ink-300 mb-4;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0,208,156,0.25); }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .mono { font-family: 'DM Mono', monospace; font-variant-numeric: tabular-nums; }
+  /* display = Manrope bold (no serif in this design) */
+  .display { font-family: 'Manrope', system-ui, sans-serif; font-weight: 700; }
+  /* gold-glow is intentionally removed — no glow in this design */
+  .gold-glow { }
+  .border-gold-faint { border-color: var(--gold-border); }
+  .bg-gold-glow { background: var(--gold-glow); }
+  .ticker-wrap:hover .ticker-content { animation-play-state: paused; }
+
+  /* ── Light-mode: white-opacity utility remaps ──────────────────────────
+     These classes target dark UI (e.g., white text/border on dark bg).
+     In light mode (default :root) they look wrong — remap to dark-tinted.
+     In dark mode (html.dark) we restore the original white-opacity values
+     via higher specificity selectors below. */
+  .border-white\/\[0\.04\] { border-color: rgba(16,24,40,0.05); }
+  .border-white\/\[0\.05\] { border-color: rgba(16,24,40,0.07); }
+  .border-white\/\[0\.06\] { border-color: rgba(16,24,40,0.08); }
+  .border-white\/\[0\.08\] { border-color: rgba(16,24,40,0.10); }
+  .border-white\/\[0\.1\]  { border-color: rgba(16,24,40,0.13); }
+  .border-white\/\[0\.14\] { border-color: rgba(16,24,40,0.18); }
+
+  .bg-white\/\[0\.02\]  { background-color: rgba(16,24,40,0.02); }
+  .bg-white\/\[0\.04\]  { background-color: rgba(16,24,40,0.03); }
+  .bg-white\/\[0\.05\]  { background-color: rgba(16,24,40,0.04); }
+  .hover\:bg-white\/\[0\.02\]:hover { background-color: rgba(16,24,40,0.02); }
+  .hover\:bg-white\/\[0\.04\]:hover { background-color: rgba(16,24,40,0.03); }
+  .hover\:bg-white\/\[0\.05\]:hover { background-color: rgba(16,24,40,0.04); }
+
+  /* Restore in dark mode */
+  html.dark .border-white\/\[0\.04\] { border-color: rgb(255 255 255 / 0.04); }
+  html.dark .border-white\/\[0\.05\] { border-color: rgb(255 255 255 / 0.05); }
+  html.dark .border-white\/\[0\.06\] { border-color: rgb(255 255 255 / 0.06); }
+  html.dark .border-white\/\[0\.08\] { border-color: rgb(255 255 255 / 0.08); }
+  html.dark .border-white\/\[0\.1\]  { border-color: rgb(255 255 255 / 0.1);  }
+  html.dark .border-white\/\[0\.14\] { border-color: rgb(255 255 255 / 0.14); }
+
+  html.dark .bg-white\/\[0\.02\]  { background-color: rgb(255 255 255 / 0.02); }
+  html.dark .bg-white\/\[0\.04\]  { background-color: rgb(255 255 255 / 0.04); }
+  html.dark .bg-white\/\[0\.05\]  { background-color: rgb(255 255 255 / 0.05); }
+  html.dark .hover\:bg-white\/\[0\.02\]:hover { background-color: rgb(255 255 255 / 0.02); }
+  html.dark .hover\:bg-white\/\[0\.04\]:hover { background-color: rgb(255 255 255 / 0.04); }
+  html.dark .hover\:bg-white\/\[0\.05\]:hover { background-color: rgb(255 255 255 / 0.05); }
+}
